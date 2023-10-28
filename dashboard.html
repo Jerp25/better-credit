@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    
+  <style>
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 100%}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      background-color: #f1f1f1;
+      height: 720px;
+    }
+        
+    /* On small screens, set height to 'auto' for the grid */
+    @media screen and (max-width: 767px) {
+      .row.content {height: auto;} 
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse visible-xs">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">Logo</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Dashboard</a></li>
+        <li><a href="#">Transactions</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid">
+    
+  <div class="row content">
+    <div class="col-sm-2 sidenav hidden-xs">
+      <h2>Finance Tracker</h2>
+      <ul class="nav nav-pills nav-stacked">
+        <li class="active"><a href="#section1">Dashboard</a></li>
+        <li><a href="#section2">Transactions</a></li>
+      </ul><br>
+    </div>
+    <br>
+    
+    <div class="col-sm-9">
+      <div class="row">
+        <div class="col-sm-5">
+          <div class="well">
+            <canvas id="Average Debit By Category" style="max-height:100%;max-width:100%"></canvas>
+          </div>
+        </div>
+        <div class="col-sm-5">
+          <div class="well">
+            <canvas id="Average Credit By Category" style="max-height:100%;max-width:100%"></canvas>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="well">
+            <h4>Credit Score</h4>
+            <p>Average Score:</p>
+            <p id="averageCreditScore"></p> 
+            <p>User Score:</p>
+            <p id="userCreditScore"></p> 
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-5">
+          <div class="well">
+            <canvas id="User Debit By Category" style="max-height:100%;max-width:100%"></canvas>
+          </div>
+        </div>
+        <div class="col-sm-5">
+          <div class="well">
+            <canvas id="User Credit By Category" style="max-height:100%;max-width:100%"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-10">
+          <div class="well">
+            <p>TBC</p> 
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+    function barColourGenerator(num) {
+        barColours = []
+        for (let i = 0; i < num; i++) {
+            barColours.push("#" + Math.floor(Math.random()*16777215).toString(16))
+        }
+        return barColours
+    }
+
+    function createBarChart(xValues, yValues, barColours, chartTitle) {
+        new Chart(chartTitle, {
+        type: "pie",
+        responsive: true,
+        data: {
+            labels: xValues,
+            datasets: [{
+            backgroundColor: barColours,
+            data: yValues
+            },]
+        },
+        options: {
+            title: {
+            display: true,
+            text: chartTitle
+            }
+        }
+        });
+    }
+
+    // Average User Debit Chart
+    let labels = ["Italy", "France", "Spain", "USA", "Argentina"]
+    let data = [55, 49, 44, 24, 15]
+    createBarChart(labels, data, barColourGenerator(data.length), "Average Debit By Category")
+
+    // Average User Credit Chart
+    labels = ["Italy", "France", "Spain", "USA", "Argentina"]
+    data = [55, 49, 44, 24, 15]
+    createBarChart(labels, data, barColourGenerator(data.length), "Average Credit By Category")
+
+    // User Debit Chart
+    labels = ["Italy", "France", "Spain", "USA", "Argentina"]
+    data = [55, 49, 44, 24, 15]
+    createBarChart(labels, data, barColourGenerator(data.length), "User Debit By Category")
+
+    // User Credit Chart
+    labels = ["Italy", "France", "Spain", "USA", "Argentina"]
+    data = [55, 49, 44, 24, 15]
+    createBarChart(labels, data, barColourGenerator(data.length), "User Credit By Category")
+
+    // set credit score values
+    document.getElementById("averageCreditScore").innerHTML = "999";
+    document.getElementById("userCreditScore").innerHTML = "777";
+
+
+</script>
+
+
+</body>
+</html>
+
