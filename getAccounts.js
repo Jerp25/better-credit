@@ -6,7 +6,6 @@ function getAccounts() {
     });
     
     var response = JSON.parse(req.responseText);
-
     return response
 }
 

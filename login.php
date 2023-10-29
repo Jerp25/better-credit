@@ -10,8 +10,4 @@ curl_setopt($curl, CURLOPT_HTTPHEADER, [
 ]);
 $data = curl_exec($curl);
 
-
-
-
-
 echo $data . PHP_EOL;

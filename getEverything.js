@@ -54,6 +54,14 @@ function getUserCreditScore(accounts) {
     return 0
 }
 
+function getUserBalance(){
+    let accounts = getAccounts()
+    for (var i = 0; i < accounts.length; i++) {
+        if (accounts[i]['id'] = getCookie('userid')) {
+            return [accounts[i]['balance'],accounts[i]['creditLimit']]
+        }
+    }
+}
 function getUserRiskScore(accounts) {
     for (var i = 0; i < accounts.length; i++) {
         if (accounts[i]['id'] = getCookie('userid')) {
@@ -105,6 +113,8 @@ function getProportions(transactions){
 }
 
 // main
+
+
 
 function getEverything() {
     let accounts = getAccounts()

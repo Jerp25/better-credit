@@ -89,6 +89,10 @@
             <p>Risk Factor:</p>
             <p id="averageRiskScore"></p> 
           </div>
+          <div class="well">
+            <h4>User Credit Limit:</h4>
+            <p id="userLimit"></p> 
+          </div>
         </div>
         <div class="col-sm-3">
           <div class="well">
@@ -97,6 +101,10 @@
             <p id="userCreditScore"></p> 
             <p>Risk Factor:</p>
             <p id="userRiskScore"></p> 
+          </div>
+          <div class="well">
+              <h4>User Balance: </h4>
+              <p id="userBalance"></p> 
           </div>
         </div>
       </div>
@@ -140,6 +148,13 @@
   // User Debit-Credit Chart
   let labels = ["Debit", "Credit"]
   let data = everything[4]
+
+  let balance = getUserBalance()[0]
+  let limit = getUserBalance()[1]
+
+
+
+
   createBarChart(labels, data, barColourGenerator(labels.length), "User Debit-Credit Spending")
 
   let tmp = everything[5];
@@ -158,14 +173,31 @@
   // User Credit Chart
   createBarChart(labels, credData, colours, "User Credit Spending By Category")
 
+  document.getElementById('userBalance').innerHTML = everything[0];
+  document.getElementById('userLimit').innerHTML = everything[0];
+
+
+
+  
+
   // set average values
   document.getElementById("averageCreditScore").innerHTML = everything[0];
   document.getElementById("averageRiskScore").innerHTML = everything[1];
 
-  // set user values
-  document.getElementById("userCreditScore").innerHTML = everything[2];
-  document.getElementById("userRiskScore").innerHTML = everything[3];
-
+  if (everything[2] >= everything[0]) {
+    document.getElementById("userCreditScore").innerHTML = everything[2] + " (Above Average)";
+    document.getElementById("userCreditScore").style.color = "green";
+  } else {
+    document.getElementById("userCreditScore").innerHTML = everything[2] + " (Below Average)";
+    document.getElementById("userCreditScore").style.color = "red";
+  }
+  if (everything[3] <= everything[1]) {
+    document.getElementById("userRiskScore").innerHTML = everything[3] + " (Below Average)";
+    document.getElementById("userRiskScore").style.color = "green";
+  } else {
+    document.getElementById("userRiskScore").innerHTML = everything[3] + " (Above Average)";
+    document.getElementById("userCreditScore").style.color = "red";
+  }
 
 </script>
 </body>
