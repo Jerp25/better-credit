@@ -13,18 +13,26 @@ body {
 
 .container {
 	display: flex;
-	align-items: center;
+	padding: 28px 628px;
+	flex-direction: column;
 	justify-content: center;
-	min-height: 100vh;
-}
+	align-items: center;
+	gap: 31px; 
+	}
 
-.screen {		
+.screen {	
 	background: linear-gradient(90deg, #5D54A4, #7C78B8);	
-	position: relative;	
+	position: relative;
 	height: 600px;
 	width: 360px;
     border-radius: 40px;
 	box-shadow: 0px 0px 24px #5C5696;
+}
+.title{
+	font-size: 60px;
+	background:rgb(28, 38, 64);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
 }
 
 .screen__content {
@@ -96,6 +104,11 @@ body {
 	padding: 20px 0px;	
 	position: relative;	
 }
+
+::placeholder {
+	color: rgb(206, 73, 73);
+	opacity: 1; /* Firefox */
+  }
 
 .login__icon {
 	position: absolute;
