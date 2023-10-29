@@ -7,7 +7,6 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
     
   <style>
 
@@ -23,6 +22,11 @@
     .sidenav {
       background: #f1f1f1;
       height: 180vh;
+    }
+
+    .custom-select {
+      width: 100%;
+      margin-bottom: 1em;
     }
         
     /* On small screens, set height to 'auto' for the grid */
@@ -61,12 +65,20 @@
         <li><a href="/dashboard.html">Dashboard</a></li>
         <li class="active"><a href="#">Transactions</a></li>
       </ul><br>
-      <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="order" id="order" onchange="order(this.value)">
+      <h3>Transactions</h3>
+      <h5>Order</h5>
+      <select class="form-select form-select-lg mb-3 py-5 custom-select" aria-label=".form-select-lg example" name="order" id="order" onchange="order(this.value)">
         <option value="0">Amount ↓</option>
         <option value="1">Amount ↑</option>
         <option selected value="2">Date ↓</option>
         <option value="3">Date ↑</option>
       </select>
+      <div class="padding-top=10px">
+        <input class="form-check-input" type="checkbox" value="" id="valid" checked onclick="toggleSuccess()">
+        <label lass="form-check-label" for="valid"> Successful Transactions</label><br>
+        <input class="form-check-input" type="checkbox" value="" id="declined" checked onclick="toggleDeclined()">
+        <label lass="form-check-label" for="declined"> Declined Transactions</label><br>
+      </div>
     </div>
     <br>
     
