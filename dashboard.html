@@ -151,6 +151,9 @@
 
   let balance = getUserBalance()[0]
   let limit = getUserBalance()[1]
+  
+  document.getElementById('userBalance').innerHTML = balance
+  document.getElementById('userLimit').innerHTML = limit
 
 
 
@@ -160,6 +163,7 @@
   let tmp = everything[5];
   let debDict = tmp[0];
   let credDict = tmp[1];
+  console.log(credDict)
   labels = ["Shopping", "Auto & Transport", "Entertainment", "Food & Dining", "Education"]
   var debData = [0,0,0,0,0]
   var credData = [0,0,0,0,0]
@@ -173,8 +177,7 @@
   // User Credit Chart
   createBarChart(labels, credData, colours, "User Credit Spending By Category")
 
-  document.getElementById('userBalance').innerHTML = everything[0];
-  document.getElementById('userLimit').innerHTML = everything[0];
+  
 
 
 
@@ -196,7 +199,7 @@
     document.getElementById("userRiskScore").style.color = "green";
   } else {
     document.getElementById("userRiskScore").innerHTML = everything[3] + " (Above Average)";
-    document.getElementById("userCreditScore").style.color = "red";
+    document.getElementById("userRiskScore").style.color = "red";
   }
 
 </script>

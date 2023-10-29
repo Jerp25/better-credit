@@ -42,12 +42,15 @@ function getAverageRiskFactor(accounts) {
 function getCookie(name) {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
+    if (parts.length == 2) 
+    {
+        return parts.pop().split(';').shift();
+    }
   }
 
 function getUserCreditScore(accounts) {
     for (var i = 0; i < accounts.length; i++) {
-        if (accounts[i]['id'] = getCookie('userid')) {
+        if (accounts[i]['accountId'] == getCookie('userid')) {
             return accounts[i]['creditScore']
         }
     }
@@ -56,15 +59,17 @@ function getUserCreditScore(accounts) {
 
 function getUserBalance(){
     let accounts = getAccounts()
+    console.log(accounts)
     for (var i = 0; i < accounts.length; i++) {
-        if (accounts[i]['id'] = getCookie('userid')) {
+        if (accounts[i]['accountId'] == getCookie('userid')) {
             return [accounts[i]['balance'],accounts[i]['creditLimit']]
         }
     }
 }
 function getUserRiskScore(accounts) {
     for (var i = 0; i < accounts.length; i++) {
-        if (accounts[i]['id'] = getCookie('userid')) {
+        if (accounts[i]['accountId'] == getCookie('userid')) {
+            
             return accounts[i]['riskScore']
         }
     }
@@ -100,19 +105,21 @@ function getProportions(transactions){
     "Education": 0};
     for(let i = 0; i < response.length; i++){
         if(response[i]["creditDebitIndicator"]=="Debit"){
-            //console.log(typeof debDict[response[i]["category"]]);
+          
             debDict[response[i]["merchant"]["category"]] += response[i]["amount"];
 
         }
         else{
+           
             credDict[response[i]["merchant"]["category"]] += response[i]["amount"];
+            console.log(credDict)
         }
     }
 
     return [debDict, credDict];
 }
 
-// main
+
 
 
 
@@ -126,6 +133,8 @@ function getEverything() {
     let userRiskScore = getUserRiskScore(accounts)
     let debitCredit = getDebitCreditPie(transactions)
     let debitCreditProportions = getProportions(transactions)
+    
+
 
     return [averageCreditScore, averageRiskFactor, userCreditScore, userRiskScore, debitCredit, debitCreditProportions]
 }
