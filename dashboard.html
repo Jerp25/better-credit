@@ -11,6 +11,7 @@
   <script src="getAccounts.js"></script>
   <script src="getTransactions.js"></script>
   <script src="transactions.js"></script>
+  <script src="getEverything.js"></script>
     
   <style>
     /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
@@ -105,65 +106,65 @@
 </div>
 
 <script>
-    function barColourGenerator(num) {
-        barColours = []
-        console.log(getUserRiskScore())
-        for (let i = 0; i < num; i++) {
-            barColours.push("#" + Math.floor(Math.random()*16777215).toString(16))
-        }
-        return barColours
-    }
+  function barColourGenerator(num) {
+      barColours = []
+      for (let i = 0; i < num; i++) {
+          barColours.push("#" + Math.floor(Math.random()*16777215).toString(16))
+      }
+      return barColours
+  }
 
-    function createBarChart(xValues, yValues, barColours, chartTitle) {
-        new Chart(chartTitle, {
-        type: "pie",
-        responsive: true,
-        data: {
-            labels: xValues,
-            datasets: [{
-            backgroundColor: barColours,
-            data: yValues
-            },]
-        },
-        options: {
-            title: {
-            display: true,
-            text: chartTitle
-            }
-        }
-        });
-    }
+  function createBarChart(xValues, yValues, barColours, chartTitle) {
+      new Chart(chartTitle, {
+      type: "pie",
+      responsive: true,
+      data: {
+          labels: xValues,
+          datasets: [{
+          backgroundColor: barColours,
+          data: yValues
+          },]
+      },
+      options: {
+          title: {
+          display: true,
+          text: chartTitle
+          }
+      }
+      });
+  }
 
-    // User Debit-Credit Chart
-    let labels = ["Debit", "Credit"]
-    let data = getDebitCreditPie()
-    createBarChart(labels, data, barColourGenerator(data.length), "User Debit-Credit Spending")
+  // [averageCreditScore, averageRiskFactor, userCreditScore, userRiskScore, debitCredit, debitCreditProportions]
+  everything = getEverything()
 
-    let tmp = getProportions();
-    let debDict = tmp[0];
-    let credDict = tmp[1];
-    //console.log(debDict)
-    // User Debit Chart
-    labels = ["Shopping", "Auto & Transport", "Entertainment", "Food & Dining", "Education"]
-    var debData = [0,0,0,0,0]
-    var credData = [0,0,0,0,0]
-    for(let i = 0; i < 5; i++){
-      debData[i] = debDict[labels[i]] < 0 ? 0: debDict[labels[i]];
-      credData[i] = credDict[labels[i]] < 0 ? 0: credDict[labels[i]];
-    }
-    let colours = barColourGenerator(labels.length)
-    createBarChart(labels, debData, colours, "User Debit Spending By Category")
+  // User Debit-Credit Chart
+  let labels = ["Debit", "Credit"]
+  let data = everything[4]
+  createBarChart(labels, data, barColourGenerator(labels.length), "User Debit-Credit Spending")
 
-    // User Credit Chart
-    createBarChart(labels, credData, colours, "User Credit Spending By Category")
+  let tmp = everything[5];
+  let debDict = tmp[0];
+  let credDict = tmp[1];
+  labels = ["Shopping", "Auto & Transport", "Entertainment", "Food & Dining", "Education"]
+  var debData = [0,0,0,0,0]
+  var credData = [0,0,0,0,0]
+  for(let i = 0; i < 5; i++){
+    debData[i] = debDict[labels[i]] < 0 ? 0: debDict[labels[i]];
+    credData[i] = credDict[labels[i]] < 0 ? 0: credDict[labels[i]];
+  }
+  let colours = barColourGenerator(labels.length)
+  createBarChart(labels, debData, colours, "User Debit Spending By Category")
 
-    // set average values
-    document.getElementById("averageCreditScore").innerHTML = getAverageCreditScore();
-    document.getElementById("averageRiskScore").innerHTML = getAverageRiskFactor();
+  // User Credit Chart
+  createBarChart(labels, credData, colours, "User Credit Spending By Category")
 
-    // set user values
-    document.getElementById("userCreditScore").innerHTML = getUserCreditScore();
-    document.getElementById("userRiskScore").innerHTML = getUserRiskScore();
+  // set average values
+  document.getElementById("averageCreditScore").innerHTML = everything[0];
+  document.getElementById("averageRiskScore").innerHTML = everything[1];
+
+  // set user values
+  document.getElementById("userCreditScore").innerHTML = everything[2];
+  document.getElementById("userRiskScore").innerHTML = everything[3];
 
 
 </script>
