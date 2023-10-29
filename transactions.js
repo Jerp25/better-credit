@@ -1,24 +1,35 @@
-document.cookie = "userid=70560991";
+function getProportions(){
+    document.cookie = "userid=70560991";
 
-var req = $.ajax({
-    type: "GET",
-    url: "/getTransactions.php",
-    async: false,
-});
+    var req = $.ajax({
+        type: "GET",
+        url: "getTransactions.php",
+        async: false
+    });
+    //console.log(req.responseText)
+    var response = JSON.parse(req.responseText);
+    var credDict = {"Shopping": 0,
+    "Auto & Transport": 0,
+    "Entertainment": 0,
+    "Food & Dining": 0,
+    "Education": 0
 
-var responce = JSON.parse(req.responseText);
+    };
+    var debDict = {"Shopping": 0,
+    "Auto & Transport": 0,
+    "Entertainment": 0,
+    "Food & Dining": 0,
+    "Education": 0};
+    for(let i = 0; i < response["Transactions"].length; i++){
+        if(response["Transactions"][i]["creditDebitIndicator"]=="Debit"){
+            //console.log(typeof debDict[response["Transactions"][i]["category"]]);
+            debDict[response["Transactions"][i]["merchant"]["category"]] += response["Transactions"][i]["amount"];
 
-var list = document.getElementById("transactions-list");
-var transactions = responce.transactions
+        }
+        else{
+            credDict[response["Transactions"][i]["merchant"]["category"]] += response["Transactions"][i]["amount"];
+        }
+    }
 
-var div = document.createElement('div');
-div.innerHTML = '<a href="#" class="list-group-item list-group-item-action" aria-current="true"> \
-                <div class="d-flex w-100 justify-content-between"> \
-                <h5 class="mb-1">Transaction</h5> \
-                <small>£100</small> \
-                </div> \
-                <p class="mb-1">lorum ipsum</p> \
-                <small>its all fake</small> \
-                </a>';
-
-list.appendChild(div)
+    return [debDict, credDict];
+}
