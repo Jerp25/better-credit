@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "bootstrap": "^5.3.2",
-    "unirest": "^0.6.0"
+    "bootstrap": "^5.3.2"
   }
 }
