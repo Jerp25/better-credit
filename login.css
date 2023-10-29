@@ -123,16 +123,17 @@ body {
 
 .login__field {
 	padding: 20px 0px;	
-	position: relative;	
+	position: relative;
+	width: 50%;
 }
 
 ::placeholder {
-	color: rgb(234, 135, 135);
+	color: black;
   }
 
 .login__input {
 	border: none;
-	border-bottom: 2px solid #7386a4;
+	border-bottom: 2px solid black;
 	background: none;
 	padding: 10px;
 	padding-left: 24px;
