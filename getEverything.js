@@ -12,8 +12,6 @@ function getAccounts() {
 
 function getTransactions() {
 
-    document.cookie = "userid=70560991";
-
     var req = $.ajax({
         type: "GET",
         url: "/getTransactions.php",
