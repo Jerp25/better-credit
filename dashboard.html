@@ -8,6 +8,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+  <script src="getAccounts.js"></script>
     
   <style>
     /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
@@ -75,8 +76,8 @@
             <h4>Credit Score</h4>
             <p>Average Score:</p>
             <p id="averageCreditScore"></p> 
-            <p>User Score:</p>
-            <p id="userCreditScore"></p> 
+            <p>Average Risk Factor:</p>
+            <p id="averageRiskFactor"></p> 
           </div>
         </div>
       </div>
@@ -105,6 +106,7 @@
 <script>
     function barColourGenerator(num) {
         barColours = []
+        console.log(getAverageCreditScore())
         for (let i = 0; i < num; i++) {
             barColours.push("#" + Math.floor(Math.random()*16777215).toString(16))
         }
@@ -152,8 +154,8 @@
     createBarChart(labels, data, barColourGenerator(data.length), "User Credit By Category")
 
     // set credit score values
-    document.getElementById("averageCreditScore").innerHTML = "999";
-    document.getElementById("userCreditScore").innerHTML = "777";
+    document.getElementById("averageCreditScore").innerHTML = getAverageCreditScore();
+    document.getElementById("averageRiskFactor").innerHTML = getAverageRiskFactor();
 
 
 </script>
