@@ -1,6 +1,4 @@
 function getProportions(){
-    document.cookie = "userid=70560991";
-
     var req = $.ajax({
         type: "GET",
         url: "getTransactions.php",
@@ -36,9 +34,6 @@ var ordering = "3";
 var success = true, declined = true;
 
 $(document).ready( function() {
-
-    document.cookie = "userid=70560991";
-
     var req = $.ajax({
         type: "GET",
         url: "/getTransactions.php",
@@ -101,7 +96,6 @@ function order(value){
 }
 
 function toggleSuccess() {
-    console.log("toggle");
     success = !success;
     order(ordering);
 }
@@ -133,10 +127,11 @@ function createTransaction(transaction) {
     var div = document.createElement('div');
     div.innerHTML = '<a href="#" class="list-group-item list-group-item-action flex-column align-items-start"> \
                     <div class="d-flex w-100 justify-content-between"> \
-                        <h5 class="mb-1">'+transaction.merchant.name+' '+transaction.emoji+'</h5> \
+                        <h5 class="mb-1">'+transaction.merchant.category+' | '+transaction.merchant.name+' '+transaction.emoji+'</h5> \
                         <small class="text-muted mr-auto">'+transaction.timestamp+'</small> \
                     </div> \
-                    <p class="mb-1">£'+transaction.amount+success+'</p> \
+                    <p class="mb-1">£'+transaction.amount+ ' (' + transaction.creditDebitIndicator + ')' +
+                    success+'</p> \
                     <small class="text-muted">'+transaction.message+'</small> \
                     </a>';
     return div.firstChild;
