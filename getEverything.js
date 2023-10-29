@@ -59,7 +59,6 @@ function getUserCreditScore(accounts) {
 
 function getUserBalance(){
     let accounts = getAccounts()
-    console.log(accounts)
     for (var i = 0; i < accounts.length; i++) {
         if (accounts[i]['accountId'] == getCookie('userid')) {
             return [accounts[i]['balance'],accounts[i]['creditLimit']]
@@ -105,14 +104,10 @@ function getProportions(transactions){
     "Education": 0};
     for(let i = 0; i < response.length; i++){
         if(response[i]["creditDebitIndicator"]=="Debit"){
-          
             debDict[response[i]["merchant"]["category"]] += response[i]["amount"];
-
         }
         else{
-           
             credDict[response[i]["merchant"]["category"]] += response[i]["amount"];
-            console.log(credDict)
         }
     }
 

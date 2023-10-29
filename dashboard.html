@@ -8,9 +8,6 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
-  <script src="getAccounts.js"></script>
-  <script src="getTransactions.js"></script>
-  <script src="transactions.js"></script>
   <script src="getEverything.js"></script>
     
   <style>
@@ -163,13 +160,12 @@
   let tmp = everything[5];
   let debDict = tmp[0];
   let credDict = tmp[1];
-  console.log(credDict)
   labels = ["Shopping", "Auto & Transport", "Entertainment", "Food & Dining", "Education"]
   var debData = [0,0,0,0,0]
   var credData = [0,0,0,0,0]
   for(let i = 0; i < 5; i++){
-    debData[i] = debDict[labels[i]] < 0 ? 0: debDict[labels[i]];
-    credData[i] = credDict[labels[i]] < 0 ? 0: credDict[labels[i]];
+    debData[i] = Math.abs(debDict[labels[i]]) < 0 ? 0: debDict[labels[i]];
+    credData[i] = Math.abs(credDict[labels[i]]) < 0 ? 0: credDict[labels[i]];
   }
   let colours = barColourGenerator(labels.length)
   createBarChart(labels, debData, colours, "User Debit Spending By Category")
