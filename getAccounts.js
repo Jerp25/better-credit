@@ -1,4 +1,3 @@
-
 function getAccounts() {
     var req = $.ajax({
         type: "GET",
@@ -28,3 +27,31 @@ function getAverageRiskFactor() {
     }
     return (Math.round(cumulativeTotal/accounts.length * 100) / 100).toString()
 }
+
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+  }
+
+function getUserCreditScore() {
+    accounts = getAccounts()['Accounts']
+    for (var i = 0; i < accounts.length; i++) {
+        if (accounts[i]['id'] = getCookie('userid')) {
+            return accounts[i]['creditScore']
+        }
+    }
+    return 0
+}
+
+function getUserRiskScore() {
+    accounts = getAccounts()['Accounts']
+    for (var i = 0; i < accounts.length; i++) {
+        if (accounts[i]['id'] = getCookie('userid')) {
+            return accounts[i]['riskScore']
+        }
+    }
+    return 0
+}
+
+

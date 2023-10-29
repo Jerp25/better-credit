@@ -9,6 +9,8 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
   <script src="getAccounts.js"></script>
+  <script src="getTransactions.js"></script>
+  <script src="transactions.js"></script>
     
   <style>
     /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
@@ -61,44 +63,43 @@
     
     <div class="col-sm-9">
       <div class="row">
-        <div class="col-sm-5">
+        <div class="col-sm-6">
           <div class="well">
-            <canvas id="Average Debit By Category" style="max-height:100%;max-width:100%"></canvas>
+            <canvas id="User Debit Spending By Category" style="max-height:100%;max-width:100%"></canvas>
           </div>
         </div>
-        <div class="col-sm-5">
+        <div class="col-sm-6">
           <div class="well">
-            <canvas id="Average Credit By Category" style="max-height:100%;max-width:100%"></canvas>
+            <canvas id="User Credit Spending By Category" style="max-height:100%;max-width:100%"></canvas>
           </div>
         </div>
-        <div class="col-sm-2">
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
           <div class="well">
-            <h4>Credit Score</h4>
-            <p>Average Score:</p>
+            <canvas id="User Debit-Credit Spending" style="max-height:100%;max-width:100%"></canvas>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="well">
+            <h4>Average User Stats</h4>
+            <p>Credit Score:</p>
             <p id="averageCreditScore"></p> 
-            <p>Average Risk Factor:</p>
-            <p id="averageRiskFactor"></p> 
+            <p>Risk Factor:</p>
+            <p id="averageRiskScore"></p> 
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="well">
+            <h4>User Stats</h4>
+            <p>Credit Score:</p>
+            <p id="userCreditScore"></p> 
+            <p>Risk Factor:</p>
+            <p id="userRiskScore"></p> 
           </div>
         </div>
       </div>
       <div class="row">
-        <div class="col-sm-5">
-          <div class="well">
-            <canvas id="User Debit By Category" style="max-height:100%;max-width:100%"></canvas>
-          </div>
-        </div>
-        <div class="col-sm-5">
-          <div class="well">
-            <canvas id="User Credit By Category" style="max-height:100%;max-width:100%"></canvas>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-10">
-          <div class="well">
-            <p>TBC</p> 
-          </div>
-      </div>
     </div>
   </div>
 </div>
@@ -106,7 +107,7 @@
 <script>
     function barColourGenerator(num) {
         barColours = []
-        console.log(getAverageCreditScore())
+        console.log(getUserRiskScore())
         for (let i = 0; i < num; i++) {
             barColours.push("#" + Math.floor(Math.random()*16777215).toString(16))
         }
@@ -133,34 +134,39 @@
         });
     }
 
-    // Average User Debit Chart
-    let labels = ["Italy", "France", "Spain", "USA", "Argentina"]
-    let data = [55, 49, 44, 24, 15]
-    createBarChart(labels, data, barColourGenerator(data.length), "Average Debit By Category")
+    // User Debit-Credit Chart
+    let labels = ["Debit", "Credit"]
+    let data = getDebitCreditPie()
+    createBarChart(labels, data, barColourGenerator(data.length), "User Debit-Credit Spending")
 
-    // Average User Credit Chart
-    labels = ["Italy", "France", "Spain", "USA", "Argentina"]
-    data = [55, 49, 44, 24, 15]
-    createBarChart(labels, data, barColourGenerator(data.length), "Average Credit By Category")
-
+    let tmp = getProportions();
+    let debDict = tmp[0];
+    let credDict = tmp[1];
+    //console.log(debDict)
     // User Debit Chart
-    labels = ["Italy", "France", "Spain", "USA", "Argentina"]
-    data = [55, 49, 44, 24, 15]
-    createBarChart(labels, data, barColourGenerator(data.length), "User Debit By Category")
+    labels = ["Shopping", "Auto & Transport", "Entertainment", "Food & Dining", "Education"]
+    var debData = [0,0,0,0,0]
+    var credData = [0,0,0,0,0]
+    for(let i = 0; i < 5; i++){
+      debData[i] = debDict[labels[i]] < 0 ? 0: debDict[labels[i]];
+      credData[i] = credDict[labels[i]] < 0 ? 0: credDict[labels[i]];
+    }
+    let colours = barColourGenerator(labels.length)
+    createBarChart(labels, debData, colours, "User Debit Spending By Category")
 
     // User Credit Chart
-    labels = ["Italy", "France", "Spain", "USA", "Argentina"]
-    data = [55, 49, 44, 24, 15]
-    createBarChart(labels, data, barColourGenerator(data.length), "User Credit By Category")
+    createBarChart(labels, credData, colours, "User Credit Spending By Category")
 
-    // set credit score values
+    // set average values
     document.getElementById("averageCreditScore").innerHTML = getAverageCreditScore();
-    document.getElementById("averageRiskFactor").innerHTML = getAverageRiskFactor();
+    document.getElementById("averageRiskScore").innerHTML = getAverageRiskFactor();
+
+    // set user values
+    document.getElementById("userCreditScore").innerHTML = getUserCreditScore();
+    document.getElementById("userRiskScore").innerHTML = getUserRiskScore();
 
 
 </script>
-
-
 </body>
 </html>
 
