@@ -30,7 +30,7 @@ body {
 }
 .title{
 	font-size: 60px;
-	background:rgb(28, 38, 64);
+	background:rgb(56, 62, 78);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 }
@@ -71,7 +71,6 @@ body {
 }
 
 .screen__background__shape2 {
-   
     transform:rotate3d(1, -1, 1, 60deg);
 	height: 200px;
 	width: 320px;
@@ -83,6 +82,21 @@ body {
     border-style: solid;
     border-width: 3px;
 }
+
+.screen__background__shape3 {
+    transform:rotate3d(1, -1, 1, 60deg);
+	height: 70px;
+	width: 170px;
+	background: gray;	
+	top: 400px;
+	right: 125px;	
+	border-radius: 10px 10px 10px 10px;
+    border: black;
+    border-style: solid;
+    border-width: 3px;
+}
+
+
 .screen__image {
     background: transparent;
     transform:rotate3d(0.5,0.7, 0.12, 60deg);
@@ -90,6 +104,14 @@ body {
 	width: 200px;
 	top: 200px;
 	right: 35px;	
+}
+.screen__image2 {
+    background: transparent;
+	transform:rotate3d(1, -1, 1, 60deg);
+	height: 150px;
+	width: 260px;
+	top: 300px;
+	right: 27px;	
 }
 
 
